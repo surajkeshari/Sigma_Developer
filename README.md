@@ -10,7 +10,7 @@
   
   M3:- Kaustubh Shah >(20205085)(https://github.com/Kaustubh484)<br>
   
-  M4:- Ashwani Singh >(20205049)(https://github.com/ash690)<br>
+  M4:- Ashwani Kumar Singh >(20205049)(https://github.com/ash690)<br>
 
                                                       Proposed Features:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------

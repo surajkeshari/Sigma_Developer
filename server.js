@@ -1,6 +1,8 @@
 const express=require('express');
-const connectDB=require('./config/db');
-
+const {connectDB,connect}=require('./config/db');
+const config = require('config');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const app=express();
 
 //connect database 
@@ -10,11 +12,36 @@ connectDB();
 app.use(express.json({ extended : false}))
 app.get('/',(req,res)=>res.send('API Running'));
 
-// Define Routes
+//Auth modules
+const crypto= require('crypto');
+const authRoutes= require(`./routes/authRoutes`);
+// const sessionStore= new MongoStore({
+//     mongooseConnection:connect,
+//     collection:'sessions'
+// })
 
-app.use('/api/users',require('./routes/api/users'));
-app.use('/api/auth',require('./routes/api/auth'));
-app.use('/api/profile',require('./routes/api/profile'));
+app.use(session({
+    secret: 'kaustubhssecret',
+    resave: false,
+    saveUninitialized: false,
+    store:new MongoStore({
+        mongoUrl:config.get('mongoURI'),
+    }),
+    cookie:{
+    maxAge:60*60*24*1000
+    }
+}))
+
+
+
+ const passport=require(`./config/passport`);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Define Routes
+app.use(authRoutes);
+
 
 const PORT=process.env.PORT || 5000;
 

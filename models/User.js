@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const UserSchema=new mongoose.Schema({
-    name:{
+    username:{
         type:String,
         Required:true
     },
@@ -10,10 +10,15 @@ const UserSchema=new mongoose.Schema({
         Required:true,
         Unique:true
     },
-    password:{
+   
+    hash: {
         type:String,
-        Required:true,
-    }
+        
+    },
+    salt:{
+        type:String
+    },
+   
 });
 
 module.exports=User=mongoose.model('user',UserSchema);
